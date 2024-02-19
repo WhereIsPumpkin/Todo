@@ -15,7 +15,7 @@ class TaskListViewController: UIViewController {
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
-     /// Header Elements
+    /// Header Elements
     private let headerStackView = UIStackView()
     private let logoLabel = UILabel()
     private let darkModeSwitch: UIImageView = {
@@ -23,25 +23,19 @@ class TaskListViewController: UIViewController {
         imageView.contentMode = .scaleAspectFit
         imageView.image = UIImage(systemName: "moon.fill")
         imageView.tintColor = .white
-
+        
         return imageView
     }()
-     /// Task Elements
+    /// Task Elements
     private let mainStackView = UIStackView()
-    private let taskInputField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Create a new todo..."
-        textField.backgroundColor = .systemBackground
-        textField.borderStyle = .roundedRect
-        return textField
-    }()
+    private let taskInputField = TaskInputTextField(placeholderKey: "Create a new todo...")
     
     // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         setupUI()
-
+        
     }
     
     // MARK: UI Setup
@@ -49,6 +43,7 @@ class TaskListViewController: UIViewController {
         addSubviews()
         setupBackgroundImageView()
         setupHeaderStackView()
+        setupMainStackView()
     }
     
     private func addSubviews() {
@@ -64,7 +59,7 @@ class TaskListViewController: UIViewController {
     
     private func setupBackgroundImageViewConstraints() {
         backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
-
+        
         NSLayoutConstraint.activate([
             backgroundImageView.topAnchor.constraint(equalTo: view.topAnchor),
             backgroundImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -127,16 +122,37 @@ class TaskListViewController: UIViewController {
     }
     
     private func setupMainStackView() {
+        setupMainStackLayout()
+        configureMainStackMargins()
+        setupMainStackConstraints()
+        setupTaskInputField()
+    }
+    
+    private func setupMainStackLayout() {
         mainStackView.axis = .vertical
-        
+        mainStackView.addArrangedSubview(taskInputField)
     }
     
     private func configureMainStackMargins() {
         mainStackView.isLayoutMarginsRelativeArrangement = true
         mainStackView.layoutMargins = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
     }
-
     
+    private func setupMainStackConstraints() {
+        mainStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            mainStackView.topAnchor.constraint(equalTo: headerStackView.bottomAnchor, constant: 32),
+            mainStackView.widthAnchor.constraint(equalToConstant: view.bounds.width)
+        ])
+    }
+    
+    private func setupTaskInputField() {
+        taskInputField.layer.cornerRadius = 5
+  
+        
+    }
+
 }
 
 #Preview {
