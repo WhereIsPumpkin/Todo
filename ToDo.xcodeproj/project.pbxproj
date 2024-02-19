@@ -11,6 +11,8 @@
 		758EAABC2B83DA1A00EEE199 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758EAABB2B83DA1A00EEE199 /* SceneDelegate.swift */; };
 		758EAABE2B83DA1A00EEE199 /* TaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758EAABD2B83DA1A00EEE199 /* TaskListViewController.swift */; };
 		758EAAC32B83DA1B00EEE199 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 758EAAC22B83DA1B00EEE199 /* Assets.xcassets */; };
+		758EAAD32B83DBC700EEE199 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758EAAD22B83DBC700EEE199 /* TaskViewModel.swift */; };
+		758EAAD52B83DBD300EEE199 /* TaskNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758EAAD42B83DBD300EEE199 /* TaskNetworkManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +22,8 @@
 		758EAABD2B83DA1A00EEE199 /* TaskListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewController.swift; sourceTree = "<group>"; };
 		758EAAC22B83DA1B00EEE199 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		758EAAC72B83DA1B00EEE199 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		758EAAD22B83DBC700EEE199 /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
+		758EAAD42B83DBD300EEE199 /* TaskNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskNetworkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +58,8 @@
 			children = (
 				758EAAD12B83DB9400EEE199 /* App */,
 				758EAABD2B83DA1A00EEE199 /* TaskListViewController.swift */,
+				758EAAD22B83DBC700EEE199 /* TaskViewModel.swift */,
+				758EAAD42B83DBD300EEE199 /* TaskNetworkManager.swift */,
 				758EAAC22B83DA1B00EEE199 /* Assets.xcassets */,
 				758EAAC72B83DA1B00EEE199 /* Info.plist */,
 			);
@@ -139,6 +145,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				758EAABE2B83DA1A00EEE199 /* TaskListViewController.swift in Sources */,
+				758EAAD52B83DBD300EEE199 /* TaskNetworkManager.swift in Sources */,
+				758EAAD32B83DBC700EEE199 /* TaskViewModel.swift in Sources */,
 				758EAABA2B83DA1A00EEE199 /* AppDelegate.swift in Sources */,
 				758EAABC2B83DA1A00EEE199 /* SceneDelegate.swift in Sources */,
 			);
