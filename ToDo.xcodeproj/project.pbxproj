@@ -15,6 +15,7 @@
 		758EAAD52B83DBD300EEE199 /* TaskNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758EAAD42B83DBD300EEE199 /* TaskNetworkManager.swift */; };
 		758EAAD72B8401E600EEE199 /* UITextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758EAAD62B8401E600EEE199 /* UITextField+Extensions.swift */; };
 		758EAAD92B84085900EEE199 /* TaskInputTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758EAAD82B84085900EEE199 /* TaskInputTextField.swift */; };
+		758EAAE02B85DC5600EEE199 /* TaskListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758EAADF2B85DC5600EEE199 /* TaskListTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		758EAAD42B83DBD300EEE199 /* TaskNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskNetworkManager.swift; sourceTree = "<group>"; };
 		758EAAD62B8401E600EEE199 /* UITextField+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extensions.swift"; sourceTree = "<group>"; };
 		758EAAD82B84085900EEE199 /* TaskInputTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskInputTextField.swift; sourceTree = "<group>"; };
+		758EAADF2B85DC5600EEE199 /* TaskListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,11 +63,10 @@
 			isa = PBXGroup;
 			children = (
 				758EAAD12B83DB9400EEE199 /* App */,
-				758EAABD2B83DA1A00EEE199 /* TaskListViewController.swift */,
-				758EAAD82B84085900EEE199 /* TaskInputTextField.swift */,
-				758EAAD22B83DBC700EEE199 /* TaskViewModel.swift */,
-				758EAAD42B83DBD300EEE199 /* TaskNetworkManager.swift */,
-				758EAAD62B8401E600EEE199 /* UITextField+Extensions.swift */,
+				758EAADA2B84F0B200EEE199 /* Screens */,
+				758EAADB2B84F0C300EEE199 /* Manager */,
+				758EAADC2B84F0D500EEE199 /* Custom Views */,
+				758EAADD2B84F0DE00EEE199 /* Extensions */,
 				758EAAC22B83DA1B00EEE199 /* Assets.xcassets */,
 				758EAAC72B83DA1B00EEE199 /* Info.plist */,
 			);
@@ -79,6 +80,48 @@
 				758EAABB2B83DA1A00EEE199 /* SceneDelegate.swift */,
 			);
 			path = App;
+			sourceTree = "<group>";
+		};
+		758EAADA2B84F0B200EEE199 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				758EAABD2B83DA1A00EEE199 /* TaskListViewController.swift */,
+				758EAAD22B83DBC700EEE199 /* TaskViewModel.swift */,
+				758EAADE2B85DC3C00EEE199 /* Cell */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		758EAADB2B84F0C300EEE199 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				758EAAD42B83DBD300EEE199 /* TaskNetworkManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		758EAADC2B84F0D500EEE199 /* Custom Views */ = {
+			isa = PBXGroup;
+			children = (
+				758EAAD82B84085900EEE199 /* TaskInputTextField.swift */,
+			);
+			path = "Custom Views";
+			sourceTree = "<group>";
+		};
+		758EAADD2B84F0DE00EEE199 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				758EAAD62B8401E600EEE199 /* UITextField+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		758EAADE2B85DC3C00EEE199 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				758EAADF2B85DC5600EEE199 /* TaskListTableViewCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -150,6 +193,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				758EAAE02B85DC5600EEE199 /* TaskListTableViewCell.swift in Sources */,
 				758EAAD92B84085900EEE199 /* TaskInputTextField.swift in Sources */,
 				758EAABE2B83DA1A00EEE199 /* TaskListViewController.swift in Sources */,
 				758EAAD52B83DBD300EEE199 /* TaskNetworkManager.swift in Sources */,

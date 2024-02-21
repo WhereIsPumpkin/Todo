@@ -27,8 +27,10 @@ class TaskListViewController: UIViewController {
         return imageView
     }()
     /// Task Elements
-    private let mainStackView = UIStackView()
     private let taskInputField = TaskInputTextField(placeholderKey: "Create a new todo...")
+    private let taskList = UITableView()
+    
+    let randomStrings = ["Buy groceries", "Call mom", "Finish homework", "Go for a run", "Read a book", "Cook dinner", "Write report", "Water plants", "Clean room", "Watch movie"]
     
     // MARK: Life Cycle
     override func viewDidLoad() {
@@ -43,13 +45,15 @@ class TaskListViewController: UIViewController {
         addSubviews()
         setupBackgroundImageView()
         setupHeaderStackView()
-        setupMainStackView()
+        setupTaskInputField()
+        setupTaskList()
     }
     
     private func addSubviews() {
         view.addSubview(backgroundImageView)
         view.addSubview(headerStackView)
-        view.addSubview(mainStackView)
+        view.addSubview(taskInputField)
+        view.addSubview(taskList)
     }
     
     private func setupBackgroundImageView() {
@@ -79,7 +83,7 @@ class TaskListViewController: UIViewController {
         headerStackView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            headerStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            headerStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
             headerStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             headerStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
@@ -121,36 +125,57 @@ class TaskListViewController: UIViewController {
         ])
     }
     
-    private func setupMainStackView() {
-        setupMainStackLayout()
-        configureMainStackMargins()
-        setupMainStackConstraints()
-        setupTaskInputField()
+    private func setupTaskInputField() {
+        setupTaskInputFieldConstraints()
     }
     
-    private func setupMainStackLayout() {
-        mainStackView.axis = .vertical
-        mainStackView.addArrangedSubview(taskInputField)
-    }
-    
-    private func configureMainStackMargins() {
-        mainStackView.isLayoutMarginsRelativeArrangement = true
-        mainStackView.layoutMargins = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
-    }
-    
-    private func setupMainStackConstraints() {
-        mainStackView.translatesAutoresizingMaskIntoConstraints = false
+    private func setupTaskInputFieldConstraints() {
+        taskInputField.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            mainStackView.topAnchor.constraint(equalTo: headerStackView.bottomAnchor, constant: 32),
-            mainStackView.widthAnchor.constraint(equalToConstant: view.bounds.width)
+            taskInputField.topAnchor.constraint(equalTo: headerStackView.bottomAnchor, constant: 32),
+            taskInputField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+            taskInputField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
         ])
     }
     
-    private func setupTaskInputField() {
-        taskInputField.layer.cornerRadius = 5
-  
+    private func setupTaskList() {
+        setupTaskListDelegates()
+        taskList.register(TaskListTableViewCell.self, forCellReuseIdentifier: "TaskCell")
+        taskList.separatorColor = UIColor(red: 227/255, green: 228/255, blue: 241/255, alpha: 1)
+        taskList.layer.cornerRadius = 5
+        taskList.layer.masksToBounds = true
+        taskList.translatesAutoresizingMaskIntoConstraints = false
         
+        NSLayoutConstraint.activate([
+            taskList.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+            taskList.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
+            taskList.topAnchor.constraint(equalTo: taskInputField.bottomAnchor, constant: 16),
+            taskList.heightAnchor.constraint(equalToConstant: 368)
+        ])
+    }
+
+    
+    private func setupTaskListDelegates() {
+        taskList.delegate = self
+        taskList.dataSource = self
+    }
+    
+}
+
+extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return randomStrings.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TaskCell", for: indexPath) as! TaskListTableViewCell
+        
+        let randomString = randomStrings[indexPath.row]
+        cell.taskLabel.text = randomString
+        
+        return cell
     }
 
 }
