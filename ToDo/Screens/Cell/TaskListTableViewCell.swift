@@ -32,10 +32,20 @@ class TaskListTableViewCell: UITableViewCell {
         return imageView
     }()
     
+    lazy var deleteIcon: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "xmark")
+        imageView.tintColor = UIColor(red: 73/255, green: 76/255, blue: 107/255, alpha: 0.5)
+        imageView.contentMode = .scaleAspectFit
+        
+        return imageView
+    }()
+    
     let taskLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        label.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
+        label.textColor = UIColor(red: 73/255, green: 76/255, blue: 107/255, alpha: 1)
         return label
     }()
     
@@ -53,6 +63,7 @@ class TaskListTableViewCell: UITableViewCell {
         configureMainStack()
         configureTaskLabel()
         configureDoneIcon()
+        configureDeleteIcon()
     }
     
     private func configureMainStack() {
@@ -60,7 +71,7 @@ class TaskListTableViewCell: UITableViewCell {
         setupMainStackConstraints()
         setupMainStackMargins()
     }
-
+    
     private func setupMainStackConstraints() {
         mainStack.translatesAutoresizingMaskIntoConstraints = false
         
@@ -92,6 +103,12 @@ class TaskListTableViewCell: UITableViewCell {
     private func configureDoneIcon() {
         doneIcon.widthAnchor.constraint(equalToConstant: 24).isActive = true
         doneIcon.heightAnchor.constraint(equalToConstant: 24).isActive = true
+    }
+    
+    private func configureDeleteIcon() {
+        mainStack.addArrangedSubview(deleteIcon)
+        deleteIcon.widthAnchor.constraint(equalToConstant: 16).isActive = true
+        deleteIcon.heightAnchor.constraint(equalToConstant: 16).isActive = true
     }
     
 }
