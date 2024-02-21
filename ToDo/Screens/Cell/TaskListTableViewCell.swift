@@ -9,6 +9,15 @@ import UIKit
 
 class TaskListTableViewCell: UITableViewCell {
     
+    // MARK: Properties
+    var isChecked: Bool = false {
+        didSet {
+            updateCheckmarkImage()
+        }
+    }
+    var onCheckmarkTapped: (() -> Void)?
+    var onDeleteTapped: (() -> Void)?
+    
     // MARK: UI Elements
     let mainStack: UIStackView = {
         let stackView = UIStackView()
@@ -16,12 +25,6 @@ class TaskListTableViewCell: UITableViewCell {
         
         return stackView
     }()
-    
-    var isChecked: Bool = false {
-        didSet {
-            updateCheckmarkImage()
-        }
-    }
     
     lazy var doneIcon: UIImageView = {
         let imageView = UIImageView()
@@ -53,6 +56,7 @@ class TaskListTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
+        setupTapGesture()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -64,6 +68,12 @@ class TaskListTableViewCell: UITableViewCell {
         configureTaskLabel()
         configureDoneIcon()
         configureDeleteIcon()
+    }
+    
+    private func setupTapGesture() {
+        contentView.isUserInteractionEnabled = true
+        let tapGestureRecognizerDone = UITapGestureRecognizer(target: self, action: #selector(handleIconTap))
+        contentView.addGestureRecognizer(tapGestureRecognizerDone)
     }
     
     private func configureMainStack() {
@@ -111,6 +121,17 @@ class TaskListTableViewCell: UITableViewCell {
         deleteIcon.heightAnchor.constraint(equalToConstant: 16).isActive = true
     }
     
+    @objc private func handleIconTap(_ sender: UITapGestureRecognizer) {
+        let tapLocation = sender.location(in: self)
+        
+        if doneIcon.frame.contains(tapLocation) {
+            isChecked.toggle()
+            onCheckmarkTapped?()
+        } else if deleteIcon.frame.contains(tapLocation) {
+            print("Delete icon tapped")
+            onDeleteTapped?()
+        }
+    }
 }
 
 #Preview {
