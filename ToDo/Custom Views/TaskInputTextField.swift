@@ -47,7 +47,7 @@ class TaskInputTextField: UITextField {
     private func setupLeftCheckmarkImageView() {
         let leftImageView = UIImageView(frame: CGRect(x: 16, y: 14, width: 24, height: 24))
         leftImageView.image = UIImage(systemName: isChecked ? "checkmark.circle.fill" : "circle")
-        leftImageView.tintColor = isChecked ? .checkmark : .lightGray
+        leftImageView.tintColor = isChecked ? .checkmark : .accentWhite
         leftImageView.contentMode = .scaleAspectFit
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 50, height: 52))
         paddingView.addSubview(leftImageView)
@@ -58,7 +58,7 @@ class TaskInputTextField: UITextField {
     private func updateCheckmarkImage() {
         if let leftImageView = self.leftView?.subviews.first as? UIImageView {
             leftImageView.image = UIImage(systemName: isChecked ? "checkmark.circle.fill" : "circle")
-            leftImageView.tintColor = isChecked ? .checkmark : .lightGray
+            leftImageView.tintColor = isChecked ? .checkmark : .accentWhite
         }
     }
     

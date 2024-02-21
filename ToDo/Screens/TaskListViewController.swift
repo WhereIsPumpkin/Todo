@@ -35,7 +35,7 @@ class TaskListViewController: UIViewController {
     // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1)
         setupUI()
         
     }
@@ -142,9 +142,10 @@ class TaskListViewController: UIViewController {
     private func setupTaskList() {
         setupTaskListDelegates()
         taskList.register(TaskListTableViewCell.self, forCellReuseIdentifier: "TaskCell")
-        taskList.separatorColor = UIColor(red: 227/255, green: 228/255, blue: 241/255, alpha: 1)
+        taskList.separatorColor = UIColor.accentWhite
         taskList.layer.cornerRadius = 5
         taskList.layer.masksToBounds = true
+        
         taskList.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
