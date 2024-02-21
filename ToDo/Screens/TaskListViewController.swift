@@ -177,6 +177,14 @@ extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
         let randomString = randomStrings[indexPath.row]
         cell.taskLabel.text = randomString
         
+        cell.onCheckmarkTapped = {
+            // TODO: - Handle Checkmark Tap
+        }
+        
+        cell.onDeleteTapped = {
+            // TODO: Handle Delete Tap
+        }
+        
         return cell
     }
 

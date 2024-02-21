@@ -9,20 +9,20 @@ import UIKit
 
 class TaskListTableViewCell: UITableViewCell {
     
-    // MARK: Properties
+    // MARK: - Properties
     var isChecked: Bool = false {
         didSet {
             updateCheckmarkImage()
         }
     }
+    
     var onCheckmarkTapped: (() -> Void)?
     var onDeleteTapped: (() -> Void)?
     
-    // MARK: UI Elements
+    // MARK: - UI Elements
     let mainStack: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-        
         return stackView
     }()
     
@@ -31,7 +31,6 @@ class TaskListTableViewCell: UITableViewCell {
         imageView.image = UIImage(systemName: isChecked ? "checkmark.circle.fill" : "circle")
         imageView.tintColor = isChecked ? .checkmark : .accentWhite
         imageView.contentMode = .scaleAspectFit
-        
         return imageView
     }()
     
@@ -40,7 +39,6 @@ class TaskListTableViewCell: UITableViewCell {
         imageView.image = UIImage(systemName: "xmark")
         imageView.tintColor = UIColor(red: 73/255, green: 76/255, blue: 107/255, alpha: 0.5)
         imageView.contentMode = .scaleAspectFit
-        
         return imageView
     }()
     
@@ -52,7 +50,7 @@ class TaskListTableViewCell: UITableViewCell {
         return label
     }()
     
-    // MARK: Initialization
+    // MARK: - Initialization
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
@@ -63,6 +61,7 @@ class TaskListTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - UI Setup
     private func setupUI() {
         configureMainStack()
         configureTaskLabel()
@@ -76,12 +75,30 @@ class TaskListTableViewCell: UITableViewCell {
         contentView.addGestureRecognizer(tapGestureRecognizerDone)
     }
     
+    // MARK: - Subview Configuration
     private func configureMainStack() {
         addSubview(mainStack)
         setupMainStackConstraints()
         setupMainStackMargins()
     }
     
+    private func configureTaskLabel() {
+        mainStack.addArrangedSubview(doneIcon)
+        mainStack.addArrangedSubview(taskLabel)
+    }
+    
+    private func configureDoneIcon() {
+        doneIcon.widthAnchor.constraint(equalToConstant: 24).isActive = true
+        doneIcon.heightAnchor.constraint(equalToConstant: 24).isActive = true
+    }
+    
+    private func configureDeleteIcon() {
+        mainStack.addArrangedSubview(deleteIcon)
+        deleteIcon.widthAnchor.constraint(equalToConstant: 16).isActive = true
+        deleteIcon.heightAnchor.constraint(equalToConstant: 16).isActive = true
+    }
+    
+    // MARK: - Layout Constraints
     private func setupMainStackConstraints() {
         mainStack.translatesAutoresizingMaskIntoConstraints = false
         
@@ -100,27 +117,13 @@ class TaskListTableViewCell: UITableViewCell {
         mainStack.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
     }
     
-    private func configureTaskLabel() {
-        mainStack.addArrangedSubview(doneIcon)
-        mainStack.addArrangedSubview(taskLabel)
-    }
-    
+    // MARK: - Helper Methods
     private func updateCheckmarkImage() {
         doneIcon.image = UIImage(systemName: isChecked ? "checkmark.circle.fill" : "circle")
         doneIcon.tintColor = isChecked ? .checkmark : .accentWhite
     }
     
-    private func configureDoneIcon() {
-        doneIcon.widthAnchor.constraint(equalToConstant: 24).isActive = true
-        doneIcon.heightAnchor.constraint(equalToConstant: 24).isActive = true
-    }
-    
-    private func configureDeleteIcon() {
-        mainStack.addArrangedSubview(deleteIcon)
-        deleteIcon.widthAnchor.constraint(equalToConstant: 16).isActive = true
-        deleteIcon.heightAnchor.constraint(equalToConstant: 16).isActive = true
-    }
-    
+    // MARK: - Gesture Recognizer
     @objc private func handleIconTap(_ sender: UITapGestureRecognizer) {
         let tapLocation = sender.location(in: self)
         
@@ -128,11 +131,11 @@ class TaskListTableViewCell: UITableViewCell {
             isChecked.toggle()
             onCheckmarkTapped?()
         } else if deleteIcon.frame.contains(tapLocation) {
-            print("Delete icon tapped")
             onDeleteTapped?()
         }
     }
 }
+
 
 #Preview {
     TaskListViewController()
