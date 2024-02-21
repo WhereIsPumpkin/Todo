@@ -61,6 +61,11 @@ class TaskListTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func configure(task: TodoTask) {
+        taskLabel.text = task.todoTask
+        isChecked = task.done
+    }
+    
     // MARK: - UI Setup
     private func setupUI() {
         configureMainStack()
@@ -89,32 +94,29 @@ class TaskListTableViewCell: UITableViewCell {
     
     private func configureDoneIcon() {
         doneIcon.widthAnchor.constraint(equalToConstant: 24).isActive = true
-        doneIcon.heightAnchor.constraint(equalToConstant: 24).isActive = true
     }
     
     private func configureDeleteIcon() {
         mainStack.addArrangedSubview(deleteIcon)
         deleteIcon.widthAnchor.constraint(equalToConstant: 16).isActive = true
-        deleteIcon.heightAnchor.constraint(equalToConstant: 16).isActive = true
     }
     
     // MARK: - Layout Constraints
     private func setupMainStackConstraints() {
         mainStack.translatesAutoresizingMaskIntoConstraints = false
-        
+
         NSLayoutConstraint.activate([
             mainStack.topAnchor.constraint(equalTo: topAnchor),
             mainStack.leadingAnchor.constraint(equalTo: leadingAnchor),
             mainStack.trailingAnchor.constraint(equalTo: trailingAnchor),
             mainStack.bottomAnchor.constraint(equalTo: bottomAnchor),
-            mainStack.heightAnchor.constraint(equalToConstant: 52)
         ])
     }
     
     private func setupMainStackMargins() {
         mainStack.spacing = 12
         mainStack.isLayoutMarginsRelativeArrangement = true
-        mainStack.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        mainStack.layoutMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
     }
     
     // MARK: - Helper Methods

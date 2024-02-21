@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct todoTask: Identifiable, Decodable {
+struct TodoTask: Identifiable, Decodable {
     var id: String
     var done: Bool
     var todoTask: String

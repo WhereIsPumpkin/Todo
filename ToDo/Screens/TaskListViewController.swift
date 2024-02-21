@@ -8,6 +8,9 @@
 import UIKit
 
 class TaskListViewController: UIViewController {
+    // MARK: Properties
+    let viewModel = TaskViewModel()
+    var tasks = [TodoTask]()
     
     // MARK: UI Elements
     private let backgroundImageView: UIImageView = {
@@ -30,16 +33,17 @@ class TaskListViewController: UIViewController {
     private let taskInputField = TaskInputTextField(placeholderKey: "Create a new todo...")
     private let taskList = UITableView()
     
-    let randomStrings = ["Buy groceries", "Call mom", "Finish homework", "Go for a run", "Read a book", "Cook dinner", "Write report", "Water plants", "Clean room", "Watch movie"]
-    
     // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1)
         setupUI()
         
+        // Fetch tasks
+        Task {
+            await viewModel.getTasks()
+        }
     }
-    
     
     // MARK: UI Setup
     private func setupUI() {
@@ -48,6 +52,7 @@ class TaskListViewController: UIViewController {
         setupHeaderStackView()
         setupTaskInputField()
         setupTaskList()
+        viewModel.delegate = self
     }
     
     private func addSubviews() {
@@ -146,6 +151,9 @@ class TaskListViewController: UIViewController {
         taskList.separatorColor = UIColor.accentWhite
         taskList.layer.cornerRadius = 5
         taskList.layer.masksToBounds = true
+        taskList.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        taskList.contentOffset = CGPoint(x: 0, y: 0)
+
         
         taskList.translatesAutoresizingMaskIntoConstraints = false
         
@@ -168,14 +176,14 @@ class TaskListViewController: UIViewController {
 extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return randomStrings.count
+        return tasks.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TaskCell", for: indexPath) as! TaskListTableViewCell
         
-        let randomString = randomStrings[indexPath.row]
-        cell.taskLabel.text = randomString
+        let task = tasks[indexPath.row]
+        cell.configure(task: task)
         
         cell.onCheckmarkTapped = {
             // TODO: - Handle Checkmark Tap
@@ -187,7 +195,19 @@ extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
         
         return cell
     }
+}
 
+extension TaskListViewController: TaskViewModelDelegate {
+    func tasksDidUpdate(tasks: [TodoTask]) {
+        DispatchQueue.main.async { [weak self] in
+            self?.tasks = tasks
+            self?.taskList.reloadData()
+        }
+    }
+    
+    func tasksFetchFailed(with error: Error) {
+        print(error.localizedDescription)
+    }
 }
 
 #Preview {
