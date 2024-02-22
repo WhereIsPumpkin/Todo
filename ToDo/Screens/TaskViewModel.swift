@@ -10,6 +10,7 @@ import Foundation
 protocol TaskViewModelDelegate: AnyObject {
     func tasksDidUpdate(tasks: [TodoTask])
     func tasksFetchFailed(with error: Error)
+    func taskDidAdd()
 }
 
 final class TaskViewModel {
@@ -25,6 +26,14 @@ final class TaskViewModel {
         }
     }
     
+    func addTask(with TaskBody: TaskData) async {
+        do {
+            try await TaskNetworkManager.shared.addTask(with: TaskBody)
+            delegate?.taskDidAdd()
+        } catch {
+            delegate?.tasksFetchFailed(with: error)
+        }
+    }
     
 }
 

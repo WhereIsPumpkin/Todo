@@ -14,6 +14,7 @@ class TaskInputTextField: UITextField {
             updateCheckmarkImage()
         }
     }
+    var onDoneButtonTap: (() -> Void)?
     
     init(placeholderKey: String) {
         super.init(frame: .zero)
@@ -30,6 +31,7 @@ class TaskInputTextField: UITextField {
         setupTextFieldAppearance(withPlaceholder: placeholder)
         setupLeftCheckmarkImageView()
         addTextChangeObserver()
+        self.delegate = self
     }
     
     private func setupTextFieldAppearance(withPlaceholder placeholder: String) {
@@ -78,5 +80,15 @@ class TaskInputTextField: UITextField {
     
     @objc private func handleTap() {
         isChecked.toggle()
+    }
+}
+
+// MARK: - UITextFieldDelegate
+extension TaskInputTextField: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        onDoneButtonTap?()
+
+        textField.resignFirstResponder()
+        return true
     }
 }

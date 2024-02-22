@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		751131AD2B88056F005062B6 /* UIViewController + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751131AC2B88056F005062B6 /* UIViewController + Extensions.swift */; };
 		758EAABA2B83DA1A00EEE199 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758EAAB92B83DA1A00EEE199 /* AppDelegate.swift */; };
 		758EAABC2B83DA1A00EEE199 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758EAABB2B83DA1A00EEE199 /* SceneDelegate.swift */; };
 		758EAABE2B83DA1A00EEE199 /* TaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758EAABD2B83DA1A00EEE199 /* TaskListViewController.swift */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		751131AC2B88056F005062B6 /* UIViewController + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + Extensions.swift"; sourceTree = "<group>"; };
 		758EAAB62B83DA1A00EEE199 /* ToDo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		758EAAB92B83DA1A00EEE199 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		758EAABB2B83DA1A00EEE199 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 			children = (
 				758EAAD62B8401E600EEE199 /* UITextField+Extensions.swift */,
 				758EAAE12B85E46F00EEE199 /* UIView+Extensions.swift */,
+				751131AC2B88056F005062B6 /* UIViewController + Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -220,6 +223,7 @@
 				758EAAE22B85E46F00EEE199 /* UIView+Extensions.swift in Sources */,
 				758EAAD72B8401E600EEE199 /* UITextField+Extensions.swift in Sources */,
 				758EAABA2B83DA1A00EEE199 /* AppDelegate.swift in Sources */,
+				751131AD2B88056F005062B6 /* UIViewController + Extensions.swift in Sources */,
 				758EAABC2B83DA1A00EEE199 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

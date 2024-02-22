@@ -131,10 +131,6 @@ class TaskListViewController: UIViewController {
         ])
     }
     
-    private func setupTaskInputField() {
-        setupTaskInputFieldConstraints()
-    }
-    
     private func setupTaskInputFieldConstraints() {
         taskInputField.translatesAutoresizingMaskIntoConstraints = false
         
@@ -153,7 +149,7 @@ class TaskListViewController: UIViewController {
         taskList.layer.masksToBounds = true
         taskList.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         taskList.contentOffset = CGPoint(x: 0, y: 0)
-
+        
         
         taskList.translatesAutoresizingMaskIntoConstraints = false
         
@@ -164,7 +160,7 @@ class TaskListViewController: UIViewController {
             taskList.heightAnchor.constraint(equalToConstant: 368)
         ])
     }
-
+    
     
     private func setupTaskListDelegates() {
         taskList.delegate = self
@@ -205,10 +201,63 @@ extension TaskListViewController: TaskViewModelDelegate {
         }
     }
     
+    func taskDidAdd() {
+        Task {
+            await viewModel.getTasks()
+        }
+        DispatchQueue.main.async { [weak self] in
+            self?.taskList.reloadData()
+        }
+    }
+    
     func tasksFetchFailed(with error: Error) {
-        print(error.localizedDescription)
+        if let urlError = error as? URLError {
+            switch urlError.code {
+            case .badURL:
+                showAlert(title: "Error", message: "Invalid URL. Please check your configuration.")
+            case .badServerResponse:
+                showAlert(title: "No Internet Connection", message: "Please check your internet connection and try again.")
+            default:
+                showAlert(title: "Network Error", message: "An unexpected network error occurred.")
+            }
+        } else if error is DecodingError {
+            showAlert(title: "Data Error", message: "There was a problem processing the received data.")
+        } else {
+            showAlert(title: "Error", message: error.localizedDescription)
+        }
+    }
+    
+}
+
+extension TaskListViewController {
+    
+    func setupTaskInputField() {
+        setupTaskInputFieldConstraints()
+        
+        taskInputField.onDoneButtonTap = { [weak self] in
+            guard let enteredTask = self?.taskInputField.text, !enteredTask.isEmpty else {
+                return
+            }
+            
+            guard let isDone = self?.taskInputField.isChecked else {
+                return
+            }
+            
+            let enteredTaskBody = TaskData(todoTask: enteredTask, done: isDone)
+            
+            Task {
+                await self?.viewModel.addTask(with: enteredTaskBody)
+            }
+            
+            self?.taskInputField.text = ""
+            
+            self?.taskInputField.resignFirstResponder()
+        }
     }
 }
+
+
+
 
 #Preview {
     TaskListViewController()
