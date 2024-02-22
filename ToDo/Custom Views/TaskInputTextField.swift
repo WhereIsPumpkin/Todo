@@ -67,7 +67,7 @@ class TaskInputTextField: UITextField {
     }
     
     @objc private func textFieldDidChange() {
-        // TODO: Handle Text Change
+        print("!23")
     }
     
     private func setupTapGesture() {
@@ -79,8 +79,4 @@ class TaskInputTextField: UITextField {
     @objc private func handleTap() {
         isChecked.toggle()
     }
-}
-
-#Preview {
-    TaskListViewController()
 }

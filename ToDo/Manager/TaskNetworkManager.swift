@@ -19,7 +19,7 @@ class TaskNetworkManager {
     private let baseURL = "http://localhost:3000/api/"
     
     private init() {}
-
+    
     func fetchTasks() async throws -> [TodoTask] {
         guard let url = URL(string: baseURL + "getTasks") else { throw URLError(.badURL) }
         let (data, response) = try await URLSession.shared.data(from: url)
@@ -29,4 +29,33 @@ class TaskNetworkManager {
         let decodedData = try JSONDecoder().decode([TodoTask].self, from: data)
         return decodedData
     }
+    
+    func addTask(with taskData: TaskData) async throws {
+        guard let url = URL(string: baseURL + "addTask") else { throw URLError(.badURL) }
+        
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = HTTPMethod.post.rawValue
+        
+        do {
+            let jsonData = try JSONEncoder().encode(taskData)
+            urlRequest.httpBody = jsonData
+            urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        } catch {
+            throw error
+        }
+        
+        do {
+            let (_, response) = try await URLSession.shared.data(for: urlRequest)
+            
+            guard let httpResponse = response as? HTTPURLResponse,
+                  httpResponse.statusCode == 201 else {
+                throw "Unexpected Response"
+            }
+        } catch {
+            throw error
+        }
+    }
+    
 }
+
+extension String: Error {}

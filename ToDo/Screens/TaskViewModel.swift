@@ -19,7 +19,6 @@ final class TaskViewModel {
     func getTasks() async {
         do {
             self.tasks = try await TaskNetworkManager.shared.fetchTasks()
-            print(tasks)
             delegate?.tasksDidUpdate(tasks: tasks)
         } catch {
             delegate?.tasksFetchFailed(with: error)

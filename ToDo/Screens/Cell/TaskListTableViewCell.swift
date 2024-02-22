@@ -128,7 +128,7 @@ class TaskListTableViewCell: UITableViewCell {
     // MARK: - Gesture Recognizer
     @objc private func handleIconTap(_ sender: UITapGestureRecognizer) {
         let tapLocation = sender.location(in: self)
-        
+
         if doneIcon.frame.contains(tapLocation) {
             isChecked.toggle()
             onCheckmarkTapped?()
