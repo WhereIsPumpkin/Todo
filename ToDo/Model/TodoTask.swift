@@ -12,3 +12,7 @@ struct TodoTask: Identifiable, Decodable {
     var done: Bool
     var todoTask: String
 }
+
+struct TodoID: Encodable {
+    var id: String
+}

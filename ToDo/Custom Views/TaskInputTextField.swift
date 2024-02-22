@@ -30,7 +30,6 @@ class TaskInputTextField: UITextField {
     private func commonInit(placeholder: String) {
         setupTextFieldAppearance(withPlaceholder: placeholder)
         setupLeftCheckmarkImageView()
-        addTextChangeObserver()
         self.delegate = self
     }
     
@@ -62,14 +61,6 @@ class TaskInputTextField: UITextField {
             leftImageView.image = UIImage(systemName: isChecked ? "checkmark.circle.fill" : "circle")
             leftImageView.tintColor = isChecked ? .checkmark : .accentWhite
         }
-    }
-    
-    private func addTextChangeObserver() {
-        self.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
-    }
-    
-    @objc private func textFieldDidChange() {
-        print("!23")
     }
     
     private func setupTapGesture() {

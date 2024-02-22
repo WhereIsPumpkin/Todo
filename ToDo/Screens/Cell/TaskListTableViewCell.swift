@@ -130,7 +130,6 @@ class TaskListTableViewCell: UITableViewCell {
         let tapLocation = sender.location(in: self)
 
         if doneIcon.frame.contains(tapLocation) {
-            isChecked.toggle()
             onCheckmarkTapped?()
         } else if deleteIcon.frame.contains(tapLocation) {
             onDeleteTapped?()

@@ -11,6 +11,7 @@ protocol TaskViewModelDelegate: AnyObject {
     func tasksDidUpdate(tasks: [TodoTask])
     func tasksFetchFailed(with error: Error)
     func taskDidAdd()
+    func taskDidToggle()
 }
 
 final class TaskViewModel {
@@ -30,6 +31,15 @@ final class TaskViewModel {
         do {
             try await TaskNetworkManager.shared.addTask(with: TaskBody)
             delegate?.taskDidAdd()
+        } catch {
+            delegate?.tasksFetchFailed(with: error)
+        }
+    }
+    
+    func toggleTask(with id: String) async {
+        do {
+            try await TaskNetworkManager.shared.toggleTask(with: id)
+            delegate?.taskDidToggle()
         } catch {
             delegate?.tasksFetchFailed(with: error)
         }

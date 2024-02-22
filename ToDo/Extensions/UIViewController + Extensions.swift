@@ -9,8 +9,10 @@ import UIKit
 
 extension UIViewController {
     func showAlert(title: String, message: String, actions: [UIAlertAction] = [UIAlertAction(title: "OK", style: .default)]) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        actions.forEach { alertController.addAction($0) }
-        self.present(alertController, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            actions.forEach { alertController.addAction($0) }
+            self.present(alertController, animated: true, completion: nil)
+        }
     }
 }

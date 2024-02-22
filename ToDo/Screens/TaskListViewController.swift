@@ -146,6 +146,7 @@ class TaskListViewController: UIViewController {
         taskList.register(TaskListTableViewCell.self, forCellReuseIdentifier: "TaskCell")
         taskList.separatorColor = UIColor.accentWhite
         taskList.layer.cornerRadius = 5
+        taskList.showsVerticalScrollIndicator = false
         taskList.layer.masksToBounds = true
         taskList.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         taskList.contentOffset = CGPoint(x: 0, y: 0)
@@ -177,12 +178,15 @@ extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TaskCell", for: indexPath) as! TaskListTableViewCell
+        cell.selectionStyle = .none
         
         let task = tasks[indexPath.row]
         cell.configure(task: task)
         
         cell.onCheckmarkTapped = {
-            // TODO: - Handle Checkmark Tap
+            Task {
+                await self.viewModel.toggleTask(with: task.id)
+            }
         }
         
         cell.onDeleteTapped = {
@@ -194,9 +198,10 @@ extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension TaskListViewController: TaskViewModelDelegate {
+    
     func tasksDidUpdate(tasks: [TodoTask]) {
         DispatchQueue.main.async { [weak self] in
-            self?.tasks = tasks
+            self?.tasks = tasks.reversed()
             self?.taskList.reloadData()
         }
     }
@@ -224,6 +229,15 @@ extension TaskListViewController: TaskViewModelDelegate {
             showAlert(title: "Data Error", message: "There was a problem processing the received data.")
         } else {
             showAlert(title: "Error", message: error.localizedDescription)
+        }
+    }
+    
+    func taskDidToggle() {
+        Task {
+            await viewModel.getTasks()
+        }
+        DispatchQueue.main.async { [weak self] in
+            self?.taskList.reloadData()
         }
     }
     

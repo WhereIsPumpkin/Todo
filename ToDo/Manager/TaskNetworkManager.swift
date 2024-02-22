@@ -56,6 +56,25 @@ class TaskNetworkManager {
         }
     }
     
+    func toggleTask(with id: String) async throws {
+        guard let url = URL(string: baseURL + "toggleTask/\(id)") else { throw URLError(.badURL) }
+        
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = HTTPMethod.patch.rawValue
+        
+        do {
+            let (_, response) = try await URLSession.shared.data(for: urlRequest)
+            
+            guard let httpResponse = response as? HTTPURLResponse,
+                  httpResponse.statusCode == 201 else {
+                throw "Unexpected Response"
+            }
+        } catch {
+            throw error
+        }
+        
+    }
+    
 }
 
 extension String: Error {}
