@@ -36,10 +36,9 @@ class TaskListViewController: UIViewController {
     // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1)
+        view.backgroundColor = UIColor.background
         setupUI()
         
-        // Fetch tasks
         Task {
             await viewModel.getTasks()
         }
@@ -63,7 +62,7 @@ class TaskListViewController: UIViewController {
     }
     
     private func setupBackgroundImageView() {
-        backgroundImageView.image = UIImage(resource: .bgLight)
+        backgroundImageView.image = UIImage(resource: isDarkMode() ? .bgDark : .bgLight)
         setupBackgroundImageViewConstraints()
     }
     
@@ -113,13 +112,41 @@ class TaskListViewController: UIViewController {
     
     private func setupLogoLabel() {
         logoLabel.text = "T O D O"
-        logoLabel.font = UIFont.boldSystemFont(ofSize: 24)
+        logoLabel.font = UIFont.boldSystemFont(ofSize: 28)
         logoLabel.textColor = .white
     }
     
     private func setupDarkModeSwitch() {
         setupDarkModeSwitchConstraints()
-        // TODO: Handle DarkMode switch
+        addTapGesture()
+    }
+    
+    private func addTapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleSwitch))
+        darkModeSwitch.isUserInteractionEnabled = true
+        darkModeSwitch.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func handleSwitch() {
+        
+        if isDarkMode() {
+            overrideUserInterfaceStyle = .light
+        } else {
+            overrideUserInterfaceStyle = .dark
+        }
+        
+        updatedDarkModeSwitchAppearance()
+        setupBackgroundImageView()
+    }
+    
+    private func updatedDarkModeSwitchAppearance() {
+        
+        if isDarkMode() {
+            darkModeSwitch.image = UIImage(systemName: "sun.max.fill")
+        } else {
+            darkModeSwitch.image = UIImage(systemName: "moon.fill")
+        }
+        
     }
     
     private func setupDarkModeSwitchConstraints() {
@@ -150,7 +177,7 @@ class TaskListViewController: UIViewController {
         taskList.layer.masksToBounds = true
         taskList.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         taskList.contentOffset = CGPoint(x: 0, y: 0)
-        
+        taskList.backgroundColor = .cell
         
         taskList.translatesAutoresizingMaskIntoConstraints = false
         
@@ -173,6 +200,11 @@ class TaskListViewController: UIViewController {
 extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if tasks.isEmpty {
+            taskList.backgroundView = EmptyStateView()
+        } else {
+            taskList.backgroundView = nil
+        }
         return tasks.count
     }
     

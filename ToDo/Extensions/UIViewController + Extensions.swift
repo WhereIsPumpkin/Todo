@@ -15,4 +15,13 @@ extension UIViewController {
             self.present(alertController, animated: true, completion: nil)
         }
     }
+    
+    func isDarkMode() -> Bool {
+        if traitCollection.userInterfaceStyle == .dark {
+            return true
+        } else {
+            return false
+        }
+    }
 }
+

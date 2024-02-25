@@ -46,7 +46,7 @@ class TaskListTableViewCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
-        label.textColor = UIColor(red: 73/255, green: 76/255, blue: 107/255, alpha: 1)
+        label.textColor = .text
         return label
     }()
     
@@ -55,6 +55,7 @@ class TaskListTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
         setupTapGesture()
+        backgroundColor = .cell
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -36,7 +36,7 @@ class TaskInputTextField: UITextField {
     private func setupTextFieldAppearance(withPlaceholder placeholder: String) {
         self.placeholder = placeholder
         self.borderStyle = .none
-        self.backgroundColor = UIColor.white
+        self.backgroundColor = UIColor.cell
         self.layer.cornerRadius = 5
         self.autocapitalizationType = .none
         self.heightAnchor.constraint(equalToConstant: 48).isActive = true
