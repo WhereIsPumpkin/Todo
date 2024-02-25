@@ -11,7 +11,7 @@ enum HTTPMethod: String {
     case get = "GET"
     case post = "POST"
     case patch = "PATCH"
-    case put = "PUT"
+    case delete = "DELETE"
 }
 
 class TaskNetworkManager {
@@ -73,6 +73,24 @@ class TaskNetworkManager {
             throw error
         }
         
+    }
+    
+    func deleteTask(with id: String) async throws {
+        guard let url = URL(string: baseURL + "/deleteTask/\(id)") else { throw URLError(.badURL) }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = HTTPMethod.delete.rawValue
+        
+        do {
+            let (_, response) = try await URLSession.shared.data(for: request)
+            
+            guard let httpResponse = response as? HTTPURLResponse,
+                  httpResponse.statusCode == 200 else {
+                throw "Unexpected Response"
+            }
+        } catch {
+            throw error
+        }
     }
     
 }
