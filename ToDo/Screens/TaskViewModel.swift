@@ -11,6 +11,7 @@ protocol TaskViewModelDelegate: AnyObject {
     func tasksDidUpdate(tasks: [TodoTask])
     func tasksFetchFailed(with error: Error)
     func taskDidAdd()
+    func taskDidDelete()
     func taskDidToggle()
 }
 
@@ -40,6 +41,15 @@ final class TaskViewModel {
         do {
             try await TaskNetworkManager.shared.toggleTask(with: id)
             delegate?.taskDidToggle()
+        } catch {
+            delegate?.tasksFetchFailed(with: error)
+        }
+    }
+    
+    func deleteTask(with id: String) async {
+        do {
+            try await TaskNetworkManager.shared.deleteTask(with: id)
+            delegate?.taskDidDelete()
         } catch {
             delegate?.tasksFetchFailed(with: error)
         }

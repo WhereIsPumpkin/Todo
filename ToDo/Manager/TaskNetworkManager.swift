@@ -76,8 +76,8 @@ class TaskNetworkManager {
     }
     
     func deleteTask(with id: String) async throws {
-        guard let url = URL(string: baseURL + "/deleteTask/\(id)") else { throw URLError(.badURL) }
-        
+        guard let url = URL(string: baseURL + "deleteTask/\(id)") else { throw URLError(.badURL) }
+
         var request = URLRequest(url: url)
         request.httpMethod = HTTPMethod.delete.rawValue
         
@@ -88,6 +88,7 @@ class TaskNetworkManager {
                   httpResponse.statusCode == 200 else {
                 throw "Unexpected Response"
             }
+            print(httpResponse.statusCode)
         } catch {
             throw error
         }

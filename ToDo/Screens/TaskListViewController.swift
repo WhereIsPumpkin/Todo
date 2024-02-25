@@ -190,7 +190,9 @@ extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         cell.onDeleteTapped = {
-            // TODO: Handle Delete Tap
+            Task {
+                await self.viewModel.deleteTask(with: task.id)
+            }
         }
         
         return cell
@@ -198,6 +200,14 @@ extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension TaskListViewController: TaskViewModelDelegate {
+    func taskDidDelete() {
+        Task {
+            await viewModel.getTasks()
+        }
+        DispatchQueue.main.async { [weak self] in
+            self?.taskList.reloadData()
+        }
+    }
     
     func tasksDidUpdate(tasks: [TodoTask]) {
         DispatchQueue.main.async { [weak self] in
