@@ -19,6 +19,46 @@ class TaskListViewController: UIViewController {
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
+    private let mainStackView: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.spacing = 0
+        stack.layer.cornerRadius = 5
+        stack.layer.masksToBounds = true
+        
+        return stack
+    }()
+    
+    private let taskFooterStackView: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.distribution = .equalSpacing
+        stack.isLayoutMarginsRelativeArrangement = true
+        stack.layoutMargins = UIEdgeInsets(top: 16, left: 20, bottom: 16, right: 20)
+        stack.backgroundColor = .cell
+        
+        return stack
+    }()
+    
+    private let itemCountLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 13, weight: .medium)
+        label.textColor = .secondaryText
+        label.text = "0 items left"
+        
+        
+        return label
+    }()
+    
+    private let clearTasksButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Clear Tasks", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 13, weight: .medium)
+        button.setTitleColor(.secondaryText, for: .normal)
+        button.backgroundColor = .clear
+        return button
+    }()
+    
     /// Header Elements
     private let headerStackView = UIStackView()
     private let logoLabel = UILabel()
@@ -51,6 +91,7 @@ class TaskListViewController: UIViewController {
         setupBackgroundImageView()
         setupHeaderStackView()
         setupTaskInputField()
+        setupMainStackView()
         setupTaskList()
         viewModel.delegate = self
     }
@@ -59,7 +100,7 @@ class TaskListViewController: UIViewController {
         view.addSubview(backgroundImageView)
         view.addSubview(headerStackView)
         view.addSubview(taskInputField)
-        view.addSubview(taskList)
+        view.addSubview(mainStackView)
     }
     
     private func setupBackgroundImageView() {
@@ -109,6 +150,23 @@ class TaskListViewController: UIViewController {
     private func configureHeaderStackViews() {
         setupLogoLabel()
         setupDarkModeSwitch()
+    }
+    
+    private func setupMainStackView() {
+        mainStackView.addArrangedSubview(taskList)
+        mainStackView.addArrangedSubview(taskFooterStackView)
+        setupTaskFooter()
+        
+        setupMainStackViewConstraints()
+    }
+    
+    private func setupMainStackViewConstraints() {
+        mainStackView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            mainStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+            mainStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
+            mainStackView.topAnchor.constraint(equalTo: taskInputField.bottomAnchor, constant: 16),
+        ])
     }
     
     private func setupLogoLabel() {
@@ -171,29 +229,36 @@ class TaskListViewController: UIViewController {
     
     private func setupTaskList() {
         setupTaskListDelegates()
+        
         taskList.register(TaskListTableViewCell.self, forCellReuseIdentifier: "TaskCell")
         taskList.separatorColor = UIColor.accentWhite
-        taskList.layer.cornerRadius = 5
         taskList.showsVerticalScrollIndicator = false
-        taskList.layer.masksToBounds = true
-        taskList.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        taskList.contentOffset = CGPoint(x: 0, y: 0)
         taskList.backgroundColor = .cell
         
         taskList.translatesAutoresizingMaskIntoConstraints = false
         
-        NSLayoutConstraint.activate([
-            taskList.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            taskList.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
-            taskList.topAnchor.constraint(equalTo: taskInputField.bottomAnchor, constant: 16),
-            taskList.heightAnchor.constraint(equalToConstant: 368)
-        ])
+        taskList.heightAnchor.constraint(equalToConstant: 368).isActive = true
     }
     
+    private func setupTaskFooter() {
+        taskFooterStackView.addArrangedSubview(itemCountLabel)
+        taskFooterStackView.addArrangedSubview(clearTasksButton)
+        setupClearButton()
+    }
     
     private func setupTaskListDelegates() {
         taskList.delegate = self
         taskList.dataSource = self
+    }
+    
+    private func setupClearButton() {
+        clearTasksButton.addAction(UIAction(handler: { [weak self] _ in
+            self?.clearTasksAction()
+        }), for: .touchUpInside)
+    }
+    
+    private func clearTasksAction() {
+        print("I got tapped") // TODO: Implement clear
     }
     
 }
@@ -308,9 +373,6 @@ extension TaskListViewController {
         }
     }
 }
-
-
-
 
 #Preview {
     TaskListViewController()

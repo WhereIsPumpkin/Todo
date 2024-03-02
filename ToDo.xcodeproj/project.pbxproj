@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		750172AC2B93945300C4CF51 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750172AB2B93945300C4CF51 /* UILabel+.swift */; };
+		750172AE2B93A99000C4CF51 /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750172AD2B93A99000C4CF51 /* UIStackView+.swift */; };
 		751131AD2B88056F005062B6 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751131AC2B88056F005062B6 /* UIViewController+.swift */; };
 		757D0D722B8BD87600DCDAA2 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757D0D712B8BD87600DCDAA2 /* EmptyStateView.swift */; };
 		758EAABA2B83DA1A00EEE199 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758EAAB92B83DA1A00EEE199 /* AppDelegate.swift */; };
@@ -28,6 +29,7 @@
 
 /* Begin PBXFileReference section */
 		750172AB2B93945300C4CF51 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
+		750172AD2B93A99000C4CF51 /* UIStackView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+.swift"; sourceTree = "<group>"; };
 		751131AC2B88056F005062B6 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		757D0D712B8BD87600DCDAA2 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
 		758EAAB62B83DA1A00EEE199 /* ToDo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -134,6 +136,7 @@
 				758EAAE12B85E46F00EEE199 /* UIView+.swift */,
 				751131AC2B88056F005062B6 /* UIViewController+.swift */,
 				750172AB2B93945300C4CF51 /* UILabel+.swift */,
+				750172AD2B93A99000C4CF51 /* UIStackView+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -245,6 +248,7 @@
 				758EAABE2B83DA1A00EEE199 /* TaskListViewController.swift in Sources */,
 				757D0D722B8BD87600DCDAA2 /* EmptyStateView.swift in Sources */,
 				758EAAD52B83DBD300EEE199 /* TaskNetworkManager.swift in Sources */,
+				750172AE2B93A99000C4CF51 /* UIStackView+.swift in Sources */,
 				758EAAD32B83DBC700EEE199 /* TaskViewModel.swift in Sources */,
 				758EAAE22B85E46F00EEE199 /* UIView+.swift in Sources */,
 				758EAAD72B8401E600EEE199 /* UITextField+.swift in Sources */,

@@ -124,7 +124,10 @@ class TaskListTableViewCell: UITableViewCell {
     private func updateCheckmarkImage() {
         doneIcon.image = UIImage(systemName: isChecked ? "checkmark.circle.fill" : "circle")
         doneIcon.tintColor = isChecked ? .checkmark : .accentWhite
-        
+        updateStrikethrough()
+    }
+    
+    private func updateStrikethrough() {
         if isChecked {
             taskLabel.applyStrikethrough()
         } else {
