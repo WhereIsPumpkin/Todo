@@ -20,7 +20,6 @@ class TaskListViewController: UIViewController {
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
-    
     private let mainStackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
@@ -46,7 +45,6 @@ class TaskListViewController: UIViewController {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 13, weight: .medium)
         label.textColor = .secondaryText
-        label.textAlignment = .center
         
         return label
     }()
@@ -61,15 +59,6 @@ class TaskListViewController: UIViewController {
     }()
     
     private let taskFilterStack = TaskFilterStackView()
-    
-    private let dragAndDropLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Drag and drop to reorder list"
-        label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
-        label.textColor = .secondaryText
-        
-        return label
-    }()
     
     /// Header Elements
     private let headerStackView = UIStackView()
@@ -104,7 +93,6 @@ class TaskListViewController: UIViewController {
         setupHeaderStackView()
         setupTaskInputField()
         setupMainStackView()
-        setupDragAndDropLabel()
         setupTaskList()
         viewModel.delegate = self
         taskFilterStack.delegate = self
@@ -115,7 +103,6 @@ class TaskListViewController: UIViewController {
         view.addSubview(headerStackView)
         view.addSubview(taskInputField)
         view.addSubview(mainStackView)
-        view.addSubview(dragAndDropLabel)
     }
     
     private func setupBackgroundImageView() {
@@ -171,22 +158,11 @@ class TaskListViewController: UIViewController {
         mainStackView.addArrangedSubview(taskList)
         mainStackView.addArrangedSubview(taskFooterStackView)
         mainStackView.addArrangedSubview(taskFilterStack)
-        
         mainStackView.setCustomSpacing(16, after: taskFooterStackView)
-        mainStackView.setCustomSpacing(32, after: taskFilterStack)
         setupTaskFooter()
         
         setupMainStackViewConstraints()
     }
-    
-    private func setupDragAndDropLabel() {
-        dragAndDropLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            dragAndDropLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            dragAndDropLabel.topAnchor.constraint(equalTo: mainStackView.bottomAnchor, constant: 20)
-        ])
-    }
-    
     
     private func setupMainStackViewConstraints() {
         mainStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -296,7 +272,7 @@ class TaskListViewController: UIViewController {
         let itemCount = allTasks.filter { !$0.done }.count
         itemCountLabel.text = "\(itemCount) items left"
     }
-    
+
     
 }
 
@@ -435,12 +411,12 @@ extension TaskListViewController {
         } else {
             displayedTasks = allTasks
         }
-        
+
         DispatchQueue.main.async { [weak self] in
             self?.taskList.reloadData()
         }
     }
-    
+
 }
 
 
