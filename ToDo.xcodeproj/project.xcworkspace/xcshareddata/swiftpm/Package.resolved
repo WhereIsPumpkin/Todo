@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "netswiftly",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/WhereIsPumpkin/NetSwiftly",
+      "state" : {
+        "branch" : "main",
+        "revision" : "c732720e47b260c28e8c7197a77c2cddb3c813b3"
+      }
+    }
+  ],
+  "version" : 2
+}

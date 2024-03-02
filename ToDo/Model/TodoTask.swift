@@ -7,12 +7,18 @@
 
 import Foundation
 
+struct TasksResponse: Decodable {
+    let data: [TodoTask]
+}
+
 struct TodoTask: Identifiable, Decodable {
     var id: String
     var done: Bool
     var todoTask: String
-}
-
-struct TodoID: Encodable {
-    var id: String
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case done
+        case todoTask
+    }
 }

@@ -21,6 +21,8 @@
 		758EAAE22B85E46F00EEE199 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758EAAE12B85E46F00EEE199 /* UIView+Extensions.swift */; };
 		758EAAE42B863B4C00EEE199 /* TodoTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758EAAE32B863B4C00EEE199 /* TodoTask.swift */; };
 		758EAAE72B86574C00EEE199 /* TaskData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758EAAE62B86574C00EEE199 /* TaskData.swift */; };
+		7596C4902B90C7AD0025A9A3 /* NetSwiftly in Frameworks */ = {isa = PBXBuildFile; productRef = 7596C48F2B90C7AD0025A9A3 /* NetSwiftly */; };
+		75D921BA2B91E33E00ECA541 /* NetworkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D921B92B91E33E00ECA541 /* NetworkConfiguration.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +42,7 @@
 		758EAAE12B85E46F00EEE199 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		758EAAE32B863B4C00EEE199 /* TodoTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTask.swift; sourceTree = "<group>"; };
 		758EAAE62B86574C00EEE199 /* TaskData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskData.swift; sourceTree = "<group>"; };
+		75D921B92B91E33E00ECA541 /* NetworkConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConfiguration.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7596C4902B90C7AD0025A9A3 /* NetSwiftly in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,7 +78,7 @@
 			children = (
 				758EAAD12B83DB9400EEE199 /* App */,
 				758EAADA2B84F0B200EEE199 /* Screens */,
-				758EAADB2B84F0C300EEE199 /* Manager */,
+				758EAADB2B84F0C300EEE199 /* Networking */,
 				758EAAE52B863B5100EEE199 /* Model */,
 				758EAADC2B84F0D500EEE199 /* Custom Views */,
 				758EAADD2B84F0DE00EEE199 /* Extensions */,
@@ -103,12 +107,13 @@
 			path = Screens;
 			sourceTree = "<group>";
 		};
-		758EAADB2B84F0C300EEE199 /* Manager */ = {
+		758EAADB2B84F0C300EEE199 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				75D921B82B91E33300ECA541 /* Config */,
 				758EAAD42B83DBD300EEE199 /* TaskNetworkManager.swift */,
 			);
-			path = Manager;
+			path = Networking;
 			sourceTree = "<group>";
 		};
 		758EAADC2B84F0D500EEE199 /* Custom Views */ = {
@@ -147,6 +152,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		75D921B82B91E33300ECA541 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				75D921B92B91E33E00ECA541 /* NetworkConfiguration.swift */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -163,6 +176,9 @@
 			dependencies = (
 			);
 			name = ToDo;
+			packageProductDependencies = (
+				7596C48F2B90C7AD0025A9A3 /* NetSwiftly */,
+			);
 			productName = ToDo;
 			productReference = 758EAAB62B83DA1A00EEE199 /* ToDo.app */;
 			productType = "com.apple.product-type.application";
@@ -191,6 +207,9 @@
 				Base,
 			);
 			mainGroup = 758EAAAD2B83DA1A00EEE199;
+			packageReferences = (
+				7596C48E2B90C7AD0025A9A3 /* XCRemoteSwiftPackageReference "NetSwiftly" */,
+			);
 			productRefGroup = 758EAAB72B83DA1A00EEE199 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -226,6 +245,7 @@
 				758EAAD32B83DBC700EEE199 /* TaskViewModel.swift in Sources */,
 				758EAAE22B85E46F00EEE199 /* UIView+Extensions.swift in Sources */,
 				758EAAD72B8401E600EEE199 /* UITextField+Extensions.swift in Sources */,
+				75D921BA2B91E33E00ECA541 /* NetworkConfiguration.swift in Sources */,
 				758EAABA2B83DA1A00EEE199 /* AppDelegate.swift in Sources */,
 				751131AD2B88056F005062B6 /* UIViewController + Extensions.swift in Sources */,
 				758EAABC2B83DA1A00EEE199 /* SceneDelegate.swift in Sources */,
@@ -430,6 +450,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		7596C48E2B90C7AD0025A9A3 /* XCRemoteSwiftPackageReference "NetSwiftly" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/WhereIsPumpkin/NetSwiftly";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7596C48F2B90C7AD0025A9A3 /* NetSwiftly */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7596C48E2B90C7AD0025A9A3 /* XCRemoteSwiftPackageReference "NetSwiftly" */;
+			productName = NetSwiftly;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 758EAAAE2B83DA1A00EEE199 /* Project object */;
 }

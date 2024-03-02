@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import NetSwiftly
 
 class TaskListViewController: UIViewController {
     // MARK: Properties
@@ -258,17 +259,13 @@ extension TaskListViewController: TaskViewModelDelegate {
     }
     
     func tasksFetchFailed(with error: Error) {
-        if let urlError = error as? URLError {
-            switch urlError.code {
-            case .badURL:
-                showAlert(title: "Error", message: "Invalid URL. Please check your configuration.")
-            case .badServerResponse:
-                showAlert(title: "No Internet Connection", message: "Please check your internet connection and try again.")
+        if let networkError = error as? NetworkError {
+            switch networkError {
+            case .serverMessage(let message):
+                showAlert(title: "Error", message: message)
             default:
-                showAlert(title: "Network Error", message: "An unexpected network error occurred.")
+                showAlert(title: "Error", message: "Something went wrong. Please try again.")
             }
-        } else if error is DecodingError {
-            showAlert(title: "Data Error", message: "There was a problem processing the received data.")
         } else {
             showAlert(title: "Error", message: error.localizedDescription)
         }

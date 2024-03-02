@@ -18,28 +18,37 @@ protocol TaskViewModelDelegate: AnyObject {
 final class TaskViewModel {
     var tasks = [TodoTask]()
     weak var delegate: TaskViewModelDelegate?
-
+    
     func getTasks() async {
         do {
-            self.tasks = try await TaskNetworkManager.shared.fetchTasks()
-            delegate?.tasksDidUpdate(tasks: tasks)
+            let fetchedTasks = try await TaskNetworkManager.shared.fetchTasks()
+            self.tasks = fetchedTasks
+            DispatchQueue.main.async {
+                self.delegate?.tasksDidUpdate(tasks: fetchedTasks)
+            }
         } catch {
-            delegate?.tasksFetchFailed(with: error)
+            DispatchQueue.main.async {
+                self.delegate?.tasksFetchFailed(with: error)
+            }
         }
     }
     
     func addTask(with TaskBody: TaskData) async {
         do {
-            try await TaskNetworkManager.shared.addTask(with: TaskBody)
-            delegate?.taskDidAdd()
+            let _ = try await TaskNetworkManager.shared.addTask(with: TaskBody)
+            DispatchQueue.main.async {
+                self.delegate?.taskDidAdd()
+            }
         } catch {
-            delegate?.tasksFetchFailed(with: error)
+            DispatchQueue.main.async {
+                self.delegate?.tasksFetchFailed(with: error)
+            }
         }
     }
     
     func toggleTask(with id: String) async {
         do {
-            try await TaskNetworkManager.shared.toggleTask(with: id)
+            _ = try await TaskNetworkManager.shared.toggleTask(with: id)
             delegate?.taskDidToggle()
         } catch {
             delegate?.tasksFetchFailed(with: error)
@@ -48,7 +57,7 @@ final class TaskViewModel {
     
     func deleteTask(with id: String) async {
         do {
-            try await TaskNetworkManager.shared.deleteTask(with: id)
+            _ = try await TaskNetworkManager.shared.deleteTask(with: id)
             delegate?.taskDidDelete()
         } catch {
             delegate?.tasksFetchFailed(with: error)
@@ -56,5 +65,3 @@ final class TaskViewModel {
     }
     
 }
-
-
