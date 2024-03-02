@@ -64,4 +64,12 @@ final class TaskViewModel {
         }
     }
     
+    func deleteAllTask() async {
+        do {
+            _ = try await TaskNetworkManager.shared.deleteAllTask()
+            delegate?.taskDidDelete()
+        } catch {
+            delegate?.tasksFetchFailed(with: error)
+        }
+    }
 }

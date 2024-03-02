@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		750172AC2B93945300C4CF51 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750172AB2B93945300C4CF51 /* UILabel+.swift */; };
 		750172AE2B93A99000C4CF51 /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750172AD2B93A99000C4CF51 /* UIStackView+.swift */; };
+		750172B02B93B8B200C4CF51 /* TaskFilterStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750172AF2B93B8B200C4CF51 /* TaskFilterStackView.swift */; };
 		751131AD2B88056F005062B6 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751131AC2B88056F005062B6 /* UIViewController+.swift */; };
 		757D0D722B8BD87600DCDAA2 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757D0D712B8BD87600DCDAA2 /* EmptyStateView.swift */; };
 		758EAABA2B83DA1A00EEE199 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758EAAB92B83DA1A00EEE199 /* AppDelegate.swift */; };
@@ -30,6 +31,7 @@
 /* Begin PBXFileReference section */
 		750172AB2B93945300C4CF51 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		750172AD2B93A99000C4CF51 /* UIStackView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+.swift"; sourceTree = "<group>"; };
+		750172AF2B93B8B200C4CF51 /* TaskFilterStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFilterStackView.swift; sourceTree = "<group>"; };
 		751131AC2B88056F005062B6 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		757D0D712B8BD87600DCDAA2 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
 		758EAAB62B83DA1A00EEE199 /* ToDo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -125,6 +127,7 @@
 			children = (
 				758EAAD82B84085900EEE199 /* TaskInputTextField.swift */,
 				757D0D712B8BD87600DCDAA2 /* EmptyStateView.swift */,
+				750172AF2B93B8B200C4CF51 /* TaskFilterStackView.swift */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -253,6 +256,7 @@
 				758EAAE22B85E46F00EEE199 /* UIView+.swift in Sources */,
 				758EAAD72B8401E600EEE199 /* UITextField+.swift in Sources */,
 				75D921BA2B91E33E00ECA541 /* NetworkConfiguration.swift in Sources */,
+				750172B02B93B8B200C4CF51 /* TaskFilterStackView.swift in Sources */,
 				758EAABA2B83DA1A00EEE199 /* AppDelegate.swift in Sources */,
 				750172AC2B93945300C4CF51 /* UILabel+.swift in Sources */,
 				751131AD2B88056F005062B6 /* UIViewController+.swift in Sources */,

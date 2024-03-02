@@ -68,4 +68,15 @@ class TaskNetworkManager {
             throw error
         }
     }
+    
+    func deleteAllTask() async throws {
+        let request = builder.delete("/deleteAllTask")
+        
+        do {
+            _ = try await NetSwiftly.shared.performRequest(request: request, responseType: Empty.self)
+        } catch {
+            throw error
+        }
+        
+    }
 }

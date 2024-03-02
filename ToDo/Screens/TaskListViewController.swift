@@ -11,7 +11,8 @@ import NetSwiftly
 class TaskListViewController: UIViewController {
     // MARK: Properties
     let viewModel = TaskViewModel()
-    var tasks = [TodoTask]()
+    var displayedTasks = [TodoTask]()
+    var allTasks = [TodoTask]()
     
     // MARK: UI Elements
     private let backgroundImageView: UIImageView = {
@@ -44,8 +45,6 @@ class TaskListViewController: UIViewController {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 13, weight: .medium)
         label.textColor = .secondaryText
-        label.text = "0 items left"
-        
         
         return label
     }()
@@ -58,6 +57,8 @@ class TaskListViewController: UIViewController {
         button.backgroundColor = .clear
         return button
     }()
+    
+    private let taskFilterStack = TaskFilterStackView()
     
     /// Header Elements
     private let headerStackView = UIStackView()
@@ -94,6 +95,7 @@ class TaskListViewController: UIViewController {
         setupMainStackView()
         setupTaskList()
         viewModel.delegate = self
+        taskFilterStack.delegate = self
     }
     
     private func addSubviews() {
@@ -155,6 +157,8 @@ class TaskListViewController: UIViewController {
     private func setupMainStackView() {
         mainStackView.addArrangedSubview(taskList)
         mainStackView.addArrangedSubview(taskFooterStackView)
+        mainStackView.addArrangedSubview(taskFilterStack)
+        mainStackView.setCustomSpacing(16, after: taskFooterStackView)
         setupTaskFooter()
         
         setupMainStackViewConstraints()
@@ -258,27 +262,36 @@ class TaskListViewController: UIViewController {
     }
     
     private func clearTasksAction() {
-        print("I got tapped") // TODO: Implement clear
+        Task {
+            await viewModel.deleteAllTask()
+        }
+        setupItemsLeftLabel()
     }
+    
+    private func setupItemsLeftLabel() {
+        let itemCount = allTasks.filter { !$0.done }.count
+        itemCountLabel.text = "\(itemCount) items left"
+    }
+
     
 }
 
 extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tasks.isEmpty {
+        if displayedTasks.isEmpty {
             taskList.backgroundView = EmptyStateView()
         } else {
             taskList.backgroundView = nil
         }
-        return tasks.count
+        return displayedTasks.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TaskCell", for: indexPath) as! TaskListTableViewCell
         cell.selectionStyle = .none
         
-        let task = tasks[indexPath.row]
+        let task = displayedTasks[indexPath.row]
         cell.configure(task: task)
         
         cell.onCheckmarkTapped = {
@@ -304,13 +317,16 @@ extension TaskListViewController: TaskViewModelDelegate {
         }
         DispatchQueue.main.async { [weak self] in
             self?.taskList.reloadData()
+            self?.setupItemsLeftLabel()
         }
     }
     
     func tasksDidUpdate(tasks: [TodoTask]) {
         DispatchQueue.main.async { [weak self] in
-            self?.tasks = tasks.reversed()
+            self?.displayedTasks = tasks.reversed()
+            self?.allTasks = tasks.reversed()
             self?.taskList.reloadData()
+            self?.setupItemsLeftLabel()
         }
     }
     
@@ -320,6 +336,7 @@ extension TaskListViewController: TaskViewModelDelegate {
         }
         DispatchQueue.main.async { [weak self] in
             self?.taskList.reloadData()
+            self?.setupItemsLeftLabel()
         }
     }
     
@@ -373,6 +390,35 @@ extension TaskListViewController {
         }
     }
 }
+
+extension TaskListViewController: TaskFilterStackViewDelegate {
+    func taskFilterStackView(_ stackView: TaskFilterStackView, didSelectFilter filter: TaskFilterMode) {
+        switch filter {
+        case .all:
+            filterTasks(by: nil)
+        case .active:
+            filterTasks(by: false)
+        case .done:
+            filterTasks(by: true)
+        }
+    }
+}
+
+extension TaskListViewController {
+    func filterTasks(by isDone: Bool?) {
+        if let isDone = isDone {
+            displayedTasks = allTasks.filter { $0.done == isDone }
+        } else {
+            displayedTasks = allTasks
+        }
+
+        DispatchQueue.main.async { [weak self] in
+            self?.taskList.reloadData()
+        }
+    }
+
+}
+
 
 #Preview {
     TaskListViewController()
