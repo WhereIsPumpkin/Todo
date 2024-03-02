@@ -105,7 +105,7 @@ class TaskListTableViewCell: UITableViewCell {
     // MARK: - Layout Constraints
     private func setupMainStackConstraints() {
         mainStack.translatesAutoresizingMaskIntoConstraints = false
-
+        
         NSLayoutConstraint.activate([
             mainStack.topAnchor.constraint(equalTo: topAnchor),
             mainStack.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -124,12 +124,18 @@ class TaskListTableViewCell: UITableViewCell {
     private func updateCheckmarkImage() {
         doneIcon.image = UIImage(systemName: isChecked ? "checkmark.circle.fill" : "circle")
         doneIcon.tintColor = isChecked ? .checkmark : .accentWhite
+        
+        if isChecked {
+            taskLabel.applyStrikethrough()
+        } else {
+            taskLabel.removeStrikethrough()
+        }
     }
     
     // MARK: - Gesture Recognizer
     @objc private func handleIconTap(_ sender: UITapGestureRecognizer) {
         let tapLocation = sender.location(in: self)
-
+        
         if doneIcon.frame.contains(tapLocation) {
             onCheckmarkTapped?()
         } else if deleteIcon.frame.contains(tapLocation) {
