@@ -8,5 +8,5 @@
 import Foundation
 
 struct NetworkConfiguration {
-    static let baseURL = "localhost:3000/api"
+    static let baseURL = "http://localhost:3000/api"
 }

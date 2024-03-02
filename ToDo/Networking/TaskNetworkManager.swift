@@ -11,7 +11,7 @@ import NetSwiftly
 class TaskNetworkManager {
     
     static let shared = TaskNetworkManager()
-    private let baseURL = "http://localhost:3000/api"
+    private let baseURL = NetworkConfiguration.baseURL
     private let builder: URLRequestBuilder
     
     private init() {
@@ -68,7 +68,4 @@ class TaskNetworkManager {
             throw error
         }
     }
-    
 }
-
-struct Empty: Decodable {}
